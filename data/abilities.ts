@@ -1256,6 +1256,28 @@ export const Abilities: import('../sim/dex-abilities').AbilityDataTable = {
 		rating: 3,
 		num: 111,
 	},
+	flameaura: {
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			if (pokemon.hasType('Fire')) {
+					damageTaken: {
+						brn: 3,
+					},
+			pokemon.trySetStatus('brn', pokemon);
+			}
+		},
+		onDamagePriority: 1,
+		onDamage(damage, target, source, effect) {
+			if (effect.id === 'brn') {
+				this.boost({ atk: 1 });
+			}
+		},	
+		flags: {},
+		name: "Flame Aura",
+		rating: 4,
+		num: 90,
+	},
 	flamebody: {
 		onDamagingHit(damage, target, source, move) {
 			if (this.checkMoveMakesContact(move, source, target)) {
