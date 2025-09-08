@@ -1260,12 +1260,11 @@ export const Abilities: import('../sim/dex-abilities').AbilityDataTable = {
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			if (pokemon.hasType('Fire')) {
-					damageTaken: {
-						brn: 3,
-					},
-			pokemon.trySetStatus('brn', pokemon);
-			}
+        if (!pokemon.fainted && !pokemon.status) {
+            // ignore immunities so Fire-types can be burned
+            pokemon.trySetStatus('brn', pokemon, { ignoreImmunities: true });
+        }
+		}
 		},
 		onDamagePriority: 1,
 		onDamage(damage, target, source, effect) {
