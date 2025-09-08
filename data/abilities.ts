@@ -1257,24 +1257,24 @@ export const Abilities: import('../sim/dex-abilities').AbilityDataTable = {
 		num: 111,
 	},
 	flameaura: {
-		onResidualOrder: 28,
-		onResidualSubOrder: 2,
-		onResidual(pokemon) {
-        if (!pokemon.fainted && !pokemon.status) {
+   	onResidualOrder: 28,
+   	onResidualSubOrder: 2,
+   	onResidual(pokemon) {
+      	if (!pokemon.fainted && !pokemon.status) {
             // ignore immunities so Fire-types can be burned
-            pokemon.trySetStatus('brn', pokemon, { ignoreImmunities: true });
-      	}
-		},
-		onDamagePriority: 1,
-		onDamage(damage, target, source, effect) {
-			if (effect.id === 'brn') {
-				this.boost({ atk: 1 });
-			}
-		},	
-		flags: {},
-		name: "Flame Aura",
-		rating: 4,
-		num: 90,
+         	pokemon.trySetStatus('brn', pokemon, { ignoreImmunities: true });
+        	}
+    	},
+    	onDamage(damage, target, source, effect) {
+      	if (effect.id === 'brn') {
+            // boost the Pokémon that took the burn
+            this.boost({ atk: 1 }, target);
+        	}
+    	},
+    	flags: {},
+    	name: "Flame Aura",
+    	rating: 4,
+    	num: 90,
 	},
 	flamebody: {
 		onDamagingHit(damage, target, source, move) {
